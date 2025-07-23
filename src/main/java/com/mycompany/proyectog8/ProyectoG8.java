@@ -19,10 +19,10 @@ public class ProyectoG8 {
     do {
         String opcionEntrada = JOptionPane.showInputDialog("""
                 ---- [Sistema de Reservación de Habitaciones] ----
-                1- Hacer Reservación.
-                2- Cancelar Reservación.
+                1- Hacer Reservacion.
+                2- Cancelar Reservacion.
                 3- Facturación.
-                4- Mostrar Datos de Reservación.
+                4- Mostrar Datos de Reservacion.
                 5- Salir.""");
 
         if (opcionEntrada == null) {
@@ -39,23 +39,23 @@ public class ProyectoG8 {
                     hacerReservacion();
                     break;
                 case 2:
-                    // cancelarReservacion(); falta de agregar
+                    JOptionPane.showMessageDialog(null, "Has seleccionado la opcion Cancelar Reservacion");
                     break;
                 case 3:
-                    // facturacion(); falta de agregar
+                    JOptionPane.showMessageDialog(null, "Has seleccionado la opcion Facturacion");
                     break;
                 case 4:
                     mostrarDatosReservacion();
                     break;
                 case 5:
-                    JOptionPane.showMessageDialog(null, "Gracias por usar el Sistema de Reservación de Habitaciones");
+                    JOptionPane.showMessageDialog(null, "Gracias por usar el Sistema de Reservacion de Habitaciones");
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "Opción del menú no válida.");
+                    JOptionPane.showMessageDialog(null, "Opcion del menu no valida.");
             }
         //Metodo para que si se digiten letras aparezca un mensaje de aviso.
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Entrada inválida. Por favor, ingrese un número.");
+            JOptionPane.showMessageDialog(null, "Entrada invalida. Por favor, ingrese un numero.");
         }
 
     } while (optmenu != 5);
@@ -72,36 +72,36 @@ public class ProyectoG8 {
     //Opciones del menu
     public static void hacerReservacion() {
     String nombre = JOptionPane.showInputDialog("Ingrese su nombre:");
-    String cedula = JOptionPane.showInputDialog("Ingrese su cédula:");
-    String correo = JOptionPane.showInputDialog("Ingrese su correo electrónico:");
-    String telefono = JOptionPane.showInputDialog("Ingrese su número de teléfono:");
+    String cedula = JOptionPane.showInputDialog("Ingrese su cedula:");
+    String correo = JOptionPane.showInputDialog("Ingrese su correo electronico:");
+    String telefono = JOptionPane.showInputDialog("Ingrese su numero de telefono:");
 
     int piso, habitacion;
 
     try {
-        piso = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de piso (1 - 5):")) - 1;
-        habitacion = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de habitación (1 - 10):")) - 1;
+        piso = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de piso (1 - 5):")) - 1;
+        habitacion = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de habitacion (1 - 10):")) - 1;
 
         if (piso < 0 || piso >= pisos || habitacion < 0 || habitacion >= habitacionesPorPiso) {
-            JOptionPane.showMessageDialog(null, "Piso o habitación fuera de rango.");
+            JOptionPane.showMessageDialog(null, "Piso o habitacion fuera de rango.");
             return;
         }
 
         if (habitacionesOcupadas[piso][habitacion]) {
-            JOptionPane.showMessageDialog(null, "La habitación ya está ocupada.");
+            JOptionPane.showMessageDialog(null, "La habitación ya esta ocupada.");
         } else {
-            int dias = Integer.parseInt(JOptionPane.showInputDialog("¿Cuántos días se hospedará?"));
+            int dias = Integer.parseInt(JOptionPane.showInputDialog("¿Cuántos dias se hospedará?"));
 
             int confirmar = JOptionPane.showConfirmDialog(null,
                     "¿Desea confirmar la reservación?\n\n" +
                     "Nombre: " + nombre +
-                    "\nCédula: " + cedula +
+                    "\nCedula: " + cedula +
                     "\nCorreo: " + correo +
-                    "\nTeléfono: " + telefono +
+                    "\nTelefono: " + telefono +
                     "\nPiso: " + (piso + 1) +
-                    "\nHabitación: " + (habitacion + 1) +
-                    "\nDías: " + dias,
-                    "Confirmar Reservación",
+                    "\nHabitacion: " + (habitacion + 1) +
+                    "\nDias: " + dias,
+                    "Confirmar Reservacion",
                     JOptionPane.YES_NO_OPTION);
 
             if (confirmar == JOptionPane.YES_OPTION) {
@@ -109,9 +109,9 @@ public class ProyectoG8 {
                 usuarios[piso][habitacion] = new Usuario(nombre, cedula, correo, telefono);
                 estancias[piso][habitacion] = new Estancia(dias);
 
-                JOptionPane.showMessageDialog(null, "Reservación realizada con éxito.");
+                JOptionPane.showMessageDialog(null, "Reservación realizada con exito.");
             } else {
-                JOptionPane.showMessageDialog(null, "Reservación cancelada por el usuario.");
+                JOptionPane.showMessageDialog(null, "Reservacion cancelada por el usuario.");
             }
         }
 
@@ -157,12 +157,12 @@ public class ProyectoG8 {
                 Usuario u = usuarios[piso][habitacion];
                 Estancia e = estancias[piso][habitacion];
 
-                lectura = lectura + "Piso: " + (piso + 1) + " | Habitación: " + (habitacion + 1) + "\n";
+                lectura = lectura + "Piso: " + (piso + 1) + " | Habitacion: " + (habitacion + 1) + "\n";
                 lectura = lectura + "Nombre: " + u.nombre + "\n";
-                lectura = lectura + "Cédula: " + u.cedula + "\n";
+                lectura = lectura + "Cedula: " + u.cedula + "\n";
                 lectura = lectura + "Correo: " + u.correo + "\n";
-                lectura = lectura + "Teléfono: " + u.telefono + "\n";
-                lectura = lectura + "Días de estancia: " + e.dias + "\n\n";
+                lectura = lectura + "Telefono: " + u.telefono + "\n";
+                lectura = lectura + "Dias de estancia: " + e.dias + "\n\n";
 
                 hayReservas = true;
             }

@@ -9,5 +9,13 @@ package com.mycompany.proyectog8;
  * @author sarab
  */
 public class Usuario {
+     String nombre, cedula, correo, telefono;
+
+    public Usuario(String nombre, String cedula, String correo, String telefono) {
+        this.nombre = nombre;
+        this.cedula = cedula;
+        this.correo = correo;
+        this.telefono = telefono;
+    }
     
 }

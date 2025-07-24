@@ -28,7 +28,6 @@ public class ProyectoG8 {
                 5- Salir.""");
 
         if (opcionEntrada == null) {
-            // Opcion de cuando el usuario cancele la entrada
             JOptionPane.showMessageDialog(null, "Saliendo del sistema...");
             System.exit(0);
         }
@@ -41,10 +40,10 @@ public class ProyectoG8 {
                     hacerReservacion();
                     break;
                 case 2:
-                    JOptionPane.showMessageDialog(null, "Has seleccionado Cancelar Reservacion");
+                    JOptionPane.showMessageDialog(null, "Has seleccionado la opcion Cancelar Reservacion");
                     break;
                 case 3:
-                    JOptionPane.showMessageDialog(null, "Has seleccionado Facturacion");
+                    JOptionPane.showMessageDialog(null, "Has seleccionado la opcion Facturacion");
                     break;
                 case 4:
                     mostrarDatosReservacion();
@@ -55,7 +54,7 @@ public class ProyectoG8 {
                 default:
                     JOptionPane.showMessageDialog(null, "Opcion del menu no valida.");
             }
-        //Metodo para que si se digiten letras aparezca un mensaje de aviso.
+        
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Entrada invalida. Por favor, ingrese un numero.");
         }
@@ -63,7 +62,7 @@ public class ProyectoG8 {
     } while (optmenu != 5);
 }
     
-    //Arreglos fijos
+   
     static final int pisos = 5;
     static final int habitacionesPorPiso = 10;
     
@@ -71,7 +70,6 @@ public class ProyectoG8 {
     static Usuario[][] usuarios = new Usuario[pisos][habitacionesPorPiso];
     static Estancia[][] estancias = new Estancia[pisos][habitacionesPorPiso];
 
-    //Opciones del menu
     public static void hacerReservacion() {
     String nombre = JOptionPane.showInputDialog("Ingrese su nombre:");
     String cedula = JOptionPane.showInputDialog("Ingrese su cedula:");

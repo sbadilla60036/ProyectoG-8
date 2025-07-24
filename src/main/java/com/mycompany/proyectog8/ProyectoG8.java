@@ -18,7 +18,7 @@ public class ProyectoG8 {
 
     do {
         String opcionEntrada = JOptionPane.showInputDialog("""
-                ---- [Sistema de Reservación de Habitaciones] ----
+                ---- [Sistema de Reservacion de Habitaciones] ----
                 1- Hacer Reservacion.
                 2- Cancelar Reservacion.
                 3- Facturación.

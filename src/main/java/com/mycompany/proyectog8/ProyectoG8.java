@@ -88,12 +88,12 @@ public class ProyectoG8 {
         }
 
         if (habitacionesOcupadas[piso][habitacion]) {
-            JOptionPane.showMessageDialog(null, "La habitación ya esta ocupada.");
+            JOptionPane.showMessageDialog(null, "La habitacion ya esta ocupada.");
         } else {
-            int dias = Integer.parseInt(JOptionPane.showInputDialog("¿Cuántos dias se hospedará?"));
+            int dias = Integer.parseInt(JOptionPane.showInputDialog("¿Cuántos dias se hospedara?"));
 
             int confirmar = JOptionPane.showConfirmDialog(null,
-                    "¿Desea confirmar la reservación?\n\n" +
+                    "¿Desea confirmar la reservacion?\n\n" +
                     "Nombre: " + nombre +
                     "\nCedula: " + cedula +
                     "\nCorreo: " + correo +
@@ -109,14 +109,14 @@ public class ProyectoG8 {
                 usuarios[piso][habitacion] = new Usuario(nombre, cedula, correo, telefono);
                 estancias[piso][habitacion] = new Estancia(dias);
 
-                JOptionPane.showMessageDialog(null, "Reservación realizada con exito.");
+                JOptionPane.showMessageDialog(null, "Reservacion realizada con exito.");
             } else {
                 JOptionPane.showMessageDialog(null, "Reservacion cancelada por el usuario.");
             }
         }
 
     } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Entrada no válida. Intente de nuevo.");
+        JOptionPane.showMessageDialog(null, "Entrada no valida. Intente de nuevo.");
     }
 }
 

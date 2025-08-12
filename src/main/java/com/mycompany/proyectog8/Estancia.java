@@ -6,7 +6,7 @@ package com.mycompany.proyectog8;
 
 /**
  *
- * @author sarab
+ * @author Grupo #8
  */
 public class Estancia {
 private String fechaIngreso;

@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author sarab
+ * @author Grupo #8
  */
 public class ProyectoG8 {
 
@@ -175,91 +175,98 @@ public class ProyectoG8 {
     } else {
         JOptionPane.showMessageDialog(null, "No hay reservaciones registradas.");
     }
-}    
- public static void facturacion() {
-        try {
-            int piso = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de piso a facturar (1 - 5):")) - 1;
-            int habitacion = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de habitacion a facturar (1 - 10):")) - 1;
+}
+public static void facturacion() {
+    try {
+        int piso = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de piso a facturar (1 - 5):")) - 1;
+        int habitacion = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de habitacion a facturar (1 - 10):")) - 1;
 
-            if (piso < 0 || piso >= pisos || habitacion < 0 || habitacion >= habitacionesPorPiso) {
-                JOptionPane.showMessageDialog(null, "Piso o habitacion fuera de rango.");
-                return;
-            }
-
-            if (!habitacionesOcupadas[piso][habitacion] || usuarios[piso][habitacion] == null || estancias[piso][habitacion] == null) {
-                JOptionPane.showMessageDialog(null, "La habitacion seleccionada no tiene una reservacion activa.");
-                return;
-            }
-
-            Usuario u = usuarios[piso][habitacion];
-            Estancia e = estancias[piso][habitacion];
-
-            int dias = e.dias;
-            if (dias <= 0) {
-                JOptionPane.showMessageDialog(null, "No hay dias de estancia registrados para esta reservacion.");
-                return;
-            }
-
-            double IVA = 0.13;       
-            double SERVICIO = 0.10;  
-
-            double TARIFA_NOCHE = tarifaPorNoche(dias);
-
-            double subtotal = dias * TARIFA_NOCHE;
-            double impuesto = subtotal * IVA;
-            double servicio = subtotal * SERVICIO;
-            double total = subtotal + impuesto + servicio;
-
-            String detalle = "----- FACTURA -----\n" +
-                    "Cliente: " + u.nombre + "\n" +
-                    "Cedula: " + u.cedula + "\n" +
-                    "Correo: " + u.correo + "\n" +
-                    "Telefono: " + u.telefono + "\n" +
-                    "Piso: " + (piso + 1) + " | Habitacion: " + (habitacion + 1) + "\n" +
-                    "Noches: " + dias + " x " + moneda(TARIFA_NOCHE) + " (tramo: " + tramoTexto(dias) + ")\n\n" +
-                    "Subtotal: " + moneda(subtotal) + "\n" +
-                    "Impuesto (13%): " + moneda(impuesto) + "\n" +
-                    "Servicio (10%): " + moneda(servicio) + "\n" +
-                    "--------------------------\n" +
-                    "TOTAL: " + moneda(total) + "\n\n" +
-                    "¿Desea confirmar el cobro?";
-
-            int confirma = JOptionPane.showConfirmDialog(null, detalle, "Confirmar Facturacion", JOptionPane.YES_NO_OPTION);
-
-            if (confirma == JOptionPane.YES_OPTION) {
-                habitacionesOcupadas[piso][habitacion] = false;
-                usuarios[piso][habitacion] = null;
-                estancias[piso][habitacion] = null;
-
-                JOptionPane.showMessageDialog(null, "Pago registrado con exito.\nTotal cobrado: " + moneda(total) +
-                        "\nMuchas gracias por preferirnos");
-            } else {
-                JOptionPane.showMessageDialog(null, "Facturacion cancelada por el usuario.");
-            }
-
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Entrada invalida. Por favor, ingrese numeros.");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Ocurrio un error en facturacion.");
+        if (piso < 0 || piso >= pisos || habitacion < 0 || habitacion >= habitacionesPorPiso) {
+            JOptionPane.showMessageDialog(null, "Piso o habitacion fuera de rango.");
+            return;
         }
-    }
 
-    private static double tarifaPorNoche(int noches) {
-        if (noches <= 0) return 0;
-        if (noches <= 2) return 45000.0;
-        if (noches <= 6) return 43000.0;
-        if (noches <= 13) return 40000.0;
-        return 38000.0;
-    }
+        if (!habitacionesOcupadas[piso][habitacion] || usuarios[piso][habitacion] == null || estancias[piso][habitacion] == null) {
+            JOptionPane.showMessageDialog(null, "La habitacion seleccionada no tiene una reservacion activa.");
+            return;
+        }
 
-    private static String tramoTexto(int noches) {
-        if (noches <= 2) return "1-2 noches";
-        if (noches <= 6) return "3-6 noches";
-        if (noches <= 13) return "7-13 noches";
-        return "14+ noches";
-    }
+        Usuario u = usuarios[piso][habitacion];
+        Estancia e = estancias[piso][habitacion];
 
-    private static String moneda(double valor) {
-        return "₡" + String.format("%,.2f", valor);
+        int dias = e.dias; 
+        if (dias <= 0) {
+            JOptionPane.showMessageDialog(null, "No hay dias de estancia registrados para esta reservacion.");
+            return;
+        }
+
+        double IVA = 0.13;       
+        double SERVICIO = 0.10;  
+
+        double TARIFA_BASE = 45000.0;
+        double TARIFA_NOCHE = tarifaPorNoche(dias);
+
+        double subtotal = dias * TARIFA_NOCHE;
+        double impuesto = subtotal * IVA;
+        double servicio = subtotal * SERVICIO;
+        double total = subtotal + impuesto + servicio;
+
+        double subtotalBase = dias * TARIFA_BASE;
+        double ahorro = Math.max(0, subtotalBase - subtotal);
+
+        String detalle = "----- FACTURA -----\n" +
+                "Cliente: " + u.nombre + "\n" +
+                "Cedula: " + u.cedula + "\n" +
+                "Correo: " + u.correo + "\n" +
+                "Telefono: " + u.telefono + "\n" +
+                "Piso: " + (piso + 1) + " | Habitacion: " + (habitacion + 1) + "\n" +
+                "Noches: " + dias + " x " + moneda(TARIFA_NOCHE) + " (tramo: " + tramoTexto(dias) + ")\n" +
+                (ahorro > 0 ? "Ahorro por tramo vs base (" + moneda(TARIFA_BASE) + "/noche): " + moneda(ahorro) + "\n" : "") +
+                "\n" +
+                "Subtotal: " + moneda(subtotal) + "\n" +
+                "Impuesto (13%): " + moneda(impuesto) + "\n" +
+                "Servicio (10%): " + moneda(servicio) + "\n" +
+                "--------------------------\n" +
+                "TOTAL: " + moneda(total) + "\n\n" +
+                "¿Desea confirmar el cobro?";
+
+        int confirma = JOptionPane.showConfirmDialog(null, detalle, "Confirmar Facturacion", JOptionPane.YES_NO_OPTION);
+
+        if (confirma == JOptionPane.YES_OPTION) {
+            // Liberamos la habitación (checkout)
+            habitacionesOcupadas[piso][habitacion] = false;
+            usuarios[piso][habitacion] = null;
+            estancias[piso][habitacion] = null;
+
+            JOptionPane.showMessageDialog(null, "Pago registrado con exito.\nTotal cobrado: " + moneda(total) +
+                    "\nGracias por preferirnos.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Facturacion cancelada por el usuario.");
+        }
+
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(null, "Entrada invalida. Por favor, ingrese numeros.");
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, "Ocurrio un error en facturacion: " + ex.getMessage());
     }
+}
+
+private static double tarifaPorNoche(int noches) {
+    if (noches <= 0) return 0;
+    if (noches <= 2) return 45000.0;
+    if (noches <= 6) return 43000.0;
+    if (noches <= 13) return 40000.0;
+    return 38000.0;
+}
+
+private static String tramoTexto(int noches) {
+    if (noches <= 2) return "1-2 noches";
+    if (noches <= 6) return "3-6 noches";
+    if (noches <= 13) return "7-13 noches";
+    return "14+ noches";
+}
+
+private static String moneda(double valor) {
+    return "₡" + String.format("%,.2f", valor);
+}
 }

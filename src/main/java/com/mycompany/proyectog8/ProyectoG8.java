@@ -175,7 +175,58 @@ public class ProyectoG8 {
     } else {
         JOptionPane.showMessageDialog(null, "No hay reservaciones registradas.");
     }
-}
+
+         public static void cancelarReservacion() {
+    try {
+        // Pedir piso
+        String inputPiso = JOptionPane.showInputDialog("Ingrese el número de piso (1 - 5):");
+        int piso = Integer.parseInt(inputPiso) - 1; // Restamos 1 porque el arreglo empieza en 0
+
+        // Pedir habitación
+        String inputHab = JOptionPane.showInputDialog("Ingrese el número de habitación (1 - 10):");
+        int habitacion = Integer.parseInt(inputHab) - 1; // Restamos 1
+
+        // Validar rango
+        if (piso < 0 || piso >= pisos || habitacion < 0 || habitacion >= habitacionesPorPiso) {
+            JOptionPane.showMessageDialog(null, "Error: Piso o habitación fuera de rango.");
+            return;
+        }
+
+        // Verificar si la habitación está ocupada
+        if (!habitacionesOcupadas[piso][habitacion]) {
+            JOptionPane.showMessageDialog(null, "La habitación no está reservada.");
+            return;
+        }
+
+        // Mostrar datos del huésped
+        Usuario usuario = usuarios[piso][habitacion];
+        Estancia estancia = estancias[piso][habitacion];
+
+        String mensaje = "Datos de la reservación:\n\n" +
+                         "Nombre: " + usuario.nombre + "\n" +
+                         "Cédula: " + usuario.cedula + "\n" +
+                         "Correo: " + usuario.correo + "\n" +
+                         "Teléfono: " + usuario.telefono + "\n" +
+                         "Piso: " + (piso + 1) + "\n" +
+                         "Habitación: " + (habitacion + 1) + "\n" +
+                         "Días de estancia: " + estancia.dias + "\n\n" +
+                         "¿Desea cancelar esta reservación?";
+
+        int confirmar = JOptionPane.showConfirmDialog(null, mensaje, "Confirmar cancelación", JOptionPane.YES_NO_OPTION);
+
+        if (confirmar == JOptionPane.YES_OPTION) {
+            // Liberar la habitación
+            habitacionesOcupadas[piso][habitacion] = false;
+            usuarios[piso][habitacion] = null;
+            estancias[piso][habitacion] = null;
+
+            JOptionPane.showMessageDialog(null, "Reservación cancelada con éxito.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Cancelación abortada por el usuario.");
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Entrada inválida. Debe ingresar números.");
+    }
 public static void facturacion() {
     try {
         int piso = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de piso a facturar (1 - 5):")) - 1;

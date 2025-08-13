@@ -186,7 +186,7 @@ public class ProyectoG8 {
         String inputHab = JOptionPane.showInputDialog("Ingrese el número de habitación (1 - 10):");
         int habitacion = Integer.parseInt(inputHab) - 1; // Restamos 1
 
-        // Validar rango
+        // Validar si está dentro del rango
         if (piso < 0 || piso >= pisos || habitacion < 0 || habitacion >= habitacionesPorPiso) {
             JOptionPane.showMessageDialog(null, "Error: Piso o habitación fuera de rango.");
             return;
@@ -222,11 +222,12 @@ public class ProyectoG8 {
 
             JOptionPane.showMessageDialog(null, "Reservación cancelada con éxito.");
         } else {
-            JOptionPane.showMessageDialog(null, "Cancelación abortada por el usuario.");
+            JOptionPane.showMessageDialog(null, "Usuario salio de la opcion.");
         }
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(null, "Entrada inválida. Debe ingresar números.");
     }
+}
 public static void facturacion() {
     try {
         int piso = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de piso a facturar (1 - 5):")) - 1;

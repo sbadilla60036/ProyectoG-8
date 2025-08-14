@@ -234,13 +234,12 @@ public class ProyectoG8 {
             int confirma = JOptionPane.showConfirmDialog(null, factura, "Confirmar Facturacion", JOptionPane.YES_NO_OPTION);
 
             if (confirma == JOptionPane.YES_OPTION) {
-                // Liberamos la habitación (checkout)
                 habitacionesOcupadas[piso][habitacion] = false;
                 usuarios[piso][habitacion] = null;
                 estancias[piso][habitacion] = null;
 
                 JOptionPane.showMessageDialog(null, "Pago registrado con exito.\nTotal cobrado: " + moneda(total) +
-                        "\nGracias por preferirnos.");
+                        "\nHabitacion Liberada.");
             } else {
                 JOptionPane.showMessageDialog(null, "Facturacion cancelada por el usuario.");
             }

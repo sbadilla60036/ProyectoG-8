@@ -41,6 +41,7 @@ public class ProyectoG8 {
                     break;
                 case 2:
                     JOptionPane.showMessageDialog(null, "Has seleccionado la opcion Cancelar Reservacion");
+                    cancelarReservacion()
                     break;
                 case 3:
                     JOptionPane.showMessageDialog(null, "Has seleccionado la opcion Facturacion");

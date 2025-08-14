@@ -37,6 +37,7 @@ public class ProyectoG8 {
 
             switch (optmenu) {
                 case 1:
+                      JOptionPane.showMessageDialog(null, "Has seleccionado la opcion Hacer Reservacion");
                     hacerReservacion();
                     break;
                 case 2:
@@ -48,6 +49,7 @@ public class ProyectoG8 {
                     facturacion();
                     break;
                 case 4:
+                    JOptionPane.showMessageDialog(null, "Has seleccionado la opcion Mostrar datos de Reservacion");
                     mostrarDatosReservacion();
                     break;
                 case 5:

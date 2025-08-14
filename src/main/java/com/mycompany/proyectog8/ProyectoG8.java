@@ -179,27 +179,27 @@ public class ProyectoG8 {
 
          public static void cancelarReservacion() {
     try {
-        // Pedir piso
+        
         String inputPiso = JOptionPane.showInputDialog("Ingrese el número de piso (1 - 5):");
-        int piso = Integer.parseInt(inputPiso) - 1; // Restamos 1 porque el arreglo empieza en 0
+        int piso = Integer.parseInt(inputPiso) - 1; 
 
-        // Pedir habitación
+        
         String inputHab = JOptionPane.showInputDialog("Ingrese el número de habitación (1 - 10):");
-        int habitacion = Integer.parseInt(inputHab) - 1; // Restamos 1
+        int habitacion = Integer.parseInt(inputHab) - 1; 
 
-        // Validar si está dentro del rango
+        
         if (piso < 0 || piso >= pisos || habitacion < 0 || habitacion >= habitacionesPorPiso) {
             JOptionPane.showMessageDialog(null, "Error: Piso o habitación fuera de rango.");
             return;
         }
 
-        // Verificar si la habitación está ocupada
+        
         if (!habitacionesOcupadas[piso][habitacion]) {
             JOptionPane.showMessageDialog(null, "La habitación no está reservada.");
             return;
         }
 
-        // Mostrar datos del huésped
+     
         Usuario usuario = usuarios[piso][habitacion];
         Estancia estancia = estancias[piso][habitacion];
 
